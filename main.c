@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define FPS 60
+#define FPS 800
 
 #define WINDOWHEIGHT 900
 #define WINDOWWIDTH 1200
@@ -239,7 +239,7 @@ void saveTodoElementsToFile(todoElements *head, const char *filename)
 
     for (todoElements *current = head; current != NULL; current = current->next)
     {
-        fprintf(file, "%d %d %d %d %s\n",
+        fprintf(file, "%d,%d,%d,%d,%s\n",
                 current->element.x, current->element.y, current->element.w, current->element.h,
                 current->textContent);
     }
@@ -261,7 +261,7 @@ void loadTodoElementsFromFile(const char *filename, todoElements *list, SDL_Rend
 
     while (1)
     {
-        if (fscanf(file, "%d %d %d %d %255s\n",
+        if (fscanf(file, "%d,%d,%d,%d,%255s\n",
                    &var1, &var2, &var3, &var4, string1) != 5)
         {
             break;
@@ -350,7 +350,7 @@ int main(int argc, char *argv[])
     }
 
     todoElements *list = NULL;
-    loadTodoElementsFromFile("./todo.txt", &list, renderer);
+    loadTodoElementsFromFile("./todo.csv", &list, renderer);
 
     SDL_Rect rect = {(int)0, (int)0, WINDOWWIDTH / 3, WINDOWHEIGHT};
 
@@ -495,6 +495,6 @@ int main(int argc, char *argv[])
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    saveTodoElementsToFile(list, "./todo.txt");
+    saveTodoElementsToFile(list, "./todo.csv");
     return 0;
 }
