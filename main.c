@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define FPS 800
+#define FPS 60
 
 #define WINDOWHEIGHT 900
 #define WINDOWWIDTH 1200
